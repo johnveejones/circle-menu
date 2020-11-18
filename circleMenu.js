@@ -54,30 +54,18 @@ function rotate(li,d) {
 	});
 }
 
-function toggleClass(element, classId) {
-	var currentClass = element.className;
-	var newClass
-	if (hasClass(element, classId)) {
-		newClass = currentClass.replace(new RegExp('\\b' + classId + '\\b','g'),"")
-	}
-	else {
-		newClass = currentClass + " " + classId;
-	}
-	element.className = newClass.trim();
-}
-
-function hasClass(element, classId) {
-	return new RegExp('(\\s|^)' + classId + '(\\s|$)').test(element.className);
-}
-
 function buttonClick() {
 	var selector = document.getElementById("menuDiv");
-	toggleClass(selector, 'open');
+	selector.classList.toggle('open');
+
 	var li = document.getElementById("menuItems").childNodes;
-	var deg = hasClass(selector, 'half') ? 180/(li.length-1) : 360/li.length;
+	var deg = selector.classList.contains('half')
+		? 180/(li.length-1) 
+			: 360/li.length;
+
 	for(var i=0; i<li.length; i++) {
-		var d = hasClass(selector, 'half') ? (i*deg)-90 : i*deg;
-		hasClass(selector, 'open') ? rotate(li[i],d) : rotate(li[i],angleStart);
+		var d = selector.classList.contains('half') ? (i*deg)-90 : i*deg;
+		selector.classList.contains('open') ? rotate(li[i],d) : rotate(li[i],angleStart);
 	}
 
 }
